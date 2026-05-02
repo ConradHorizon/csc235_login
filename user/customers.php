@@ -1,7 +1,10 @@
 <?php
-// CSC 235 - Special Assignment: Customer Entity Management
-// Developed by: Conrad Powell
-require_once('../php/config.php'); 
+// Conrad Powell
+if (!defined('ROOT_PATH')) {
+    define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
+}
+
+require_once('../php/config.php');
 
 $message = "";
 
