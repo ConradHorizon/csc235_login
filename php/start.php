@@ -91,6 +91,21 @@ $create_contacts = $db_connection->prepare(
 $create_contacts->execute();
 $create_contacts->close();
 
+/* Customers - Added for Step 1 */
+$create_customers = $db_connection->prepare("CREATE OR REPLACE TABLE customers (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Phone VARCHAR(20),
+    Address VARCHAR(255),
+    City VARCHAR(100),
+    Country VARCHAR(100) NOT NULL DEFAULT 'USA',
+    CreatedAt DATETIME NOT NULL DEFAULT NOW()
+);");
+$create_customers->execute();
+$create_customers->close();
+
 /* Below Are Tables That Have Foreign Keys */
 /* ------------------------------------------ */
 
@@ -125,6 +140,20 @@ echo nl2br("The database tables were successfully created.\r\n");
 //-----------------------------------------------------
 // Populate Tables of Database
 //-----------------------------------------------------
+
+/* Populate Customers */
+$insert_cust = $db_connection->prepare("INSERT INTO customers (FirstName, LastName, Email, City) VALUES (?, ?, ?, ?);");
+$insert_cust->bind_param("ssss", $fName, $lName, $email, $city);
+
+// Entry 1
+$fName = "Conrad"; $lName = "Powell"; $email = "powellc7@southernct.edu"; $city = "Bridgeport";
+$insert_cust->execute();
+
+// Entry 2
+$fName = "Joshua"; $lName = "Connor"; $email = "connorj4@southernct.edu"; $city = "New Haven";
+$insert_cust->execute();
+
+$insert_cust->close();
 
 /* Roles */
 $insert_role = $db_connection->prepare(
