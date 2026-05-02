@@ -1,7 +1,7 @@
 <?php
 // CSC 235 - Special Assignment: Customer Entity Management
 // Developed by: Conrad Powell
-require_once('../php/db_connection.php'); 
+require_once('../php/config.php'); 
 
 $message = "";
 
